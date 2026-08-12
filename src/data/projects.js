@@ -27,7 +27,7 @@ export const projects = [
     learned:
       'Practical experience with role-based authentication, structuring a multi-role REST API, and designing a relational-style schema in a document database.',
     github: 'https://github.com/Ranit-Ani/campus-parking.git',
-    demo: 'https://campus-parking.onrender.com',
+    demo: 'https://car-parking-app-xofv.onrender.com',
     accent: 'violet',
   },
   {
