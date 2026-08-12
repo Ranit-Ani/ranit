@@ -15,10 +15,10 @@ const TERMINAL_LINES = [
 ]
 
 const BADGES = [
-  { label: 'React', style: 'top-[6%] left-[4%]', delay: 0 },
-  { label: 'Node.js', style: 'top-[18%] right-[0%]', delay: 0.6 },
-  { label: 'MongoDB', style: 'bottom-[14%] left-[-4%]', delay: 1.1 },
-  { label: 'Python', style: 'bottom-[2%] right-[10%]', delay: 1.6 },
+  { label: 'React', style: '-top-5 -left-6', delay: 0 },
+  { label: 'Node.js', style: '-top-6 -right-8', delay: 0.6 },
+  { label: 'MongoDB', style: '-bottom-6 -left-8', delay: 1.1 },
+  { label: 'Python', style: '-bottom-5 -right-6', delay: 1.6 },
 ]
 
 function Terminal() {
