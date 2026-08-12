@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, Send } from 'lucide-react'
 
 const EMAIL = 'pramanickranit356@gmail.com'
 const GITHUB_URL = 'https://github.com/Ranit-Ani'
-const LINKEDIN_URL = 'www.linkedin.com/in/ranit-ani'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/ranit-ani'
 
 function validate(values) {
   const errors = {}

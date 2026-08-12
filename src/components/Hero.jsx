@@ -158,7 +158,7 @@ export default function Hero() {
               <Github size={19} />
             </a>
             <a
-              href="www.linkedin.com/in/ranit-ani"
+              href="https://www.linkedin.com/in/ranit-ani"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn profile"
