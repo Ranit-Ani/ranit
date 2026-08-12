@@ -21,12 +21,12 @@ export default function Education() {
                 Bachelor of Computer Applications (BCA)
               </h3>
               <p className="mt-1 text-sm text-mist">
-                College / University name &mdash; add here &middot; West Bengal, India
+                College / University name — Brainware University · West Bengal, India
               </p>
             </div>
           </div>
           <span className="inline-flex w-fit items-center rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1.5 font-mono text-xs text-emerald-400">
-            In progress &middot; Add duration
+            In progress · 2024 — 2028
           </span>
         </motion.div>
       </div>

@@ -149,7 +149,7 @@ export default function Hero() {
 
           <div className="mt-8 flex items-center gap-4 text-mist">
             <a
-              href="https://github.com/YOUR_USERNAME"
+              href="https://github.com/Ranit-Ani"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub profile"
@@ -158,7 +158,7 @@ export default function Hero() {
               <Github size={19} />
             </a>
             <a
-              href="https://linkedin.com/in/YOUR_USERNAME"
+              href="www.linkedin.com/in/ranit-ani"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn profile"
@@ -167,7 +167,7 @@ export default function Hero() {
               <Linkedin size={19} />
             </a>
             <a
-              href="mailto:ranit@example.com"
+              href="mailto:pramanickranit356@gmail.com"
               aria-label="Send an email"
               className="rounded-lg p-2 transition-colors hover:bg-white/[0.06] hover:text-white"
             >

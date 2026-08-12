@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, Send } from 'lucide-react'
 
-const EMAIL = 'ranit@example.com'
-const GITHUB_URL = 'https://github.com/YOUR_USERNAME'
-const LINKEDIN_URL = 'https://linkedin.com/in/YOUR_USERNAME'
+const EMAIL = 'pramanickranit356@gmail.com'
+const GITHUB_URL = 'https://github.com/Ranit-Ani'
+const LINKEDIN_URL = 'www.linkedin.com/in/ranit-ani'
 
 function validate(values) {
   const errors = {}
@@ -77,7 +77,7 @@ export default function Contact() {
                 rel="noreferrer"
                 className="flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3 text-sm text-mist-light transition-colors hover:border-signal-violet/40 hover:text-white"
               >
-                <Github size={17} /> github.com/YOUR_USERNAME
+                <Github size={17} /> github.com/Ranit-Ani
               </a>
               <a
                 href={LINKEDIN_URL}
@@ -85,7 +85,7 @@ export default function Contact() {
                 rel="noreferrer"
                 className="flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3 text-sm text-mist-light transition-colors hover:border-signal-violet/40 hover:text-white"
               >
-                <Linkedin size={17} /> linkedin.com/in/YOUR_USERNAME
+                <Linkedin size={17} /> linkedin.com/in/ranit-ani
               </a>
             </div>
           </motion.div>

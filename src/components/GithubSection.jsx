@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Github, GitFork, Star } from 'lucide-react'
 import { projects } from '../data/projects.js'
 
-const GITHUB_URL = 'https://github.com/YOUR_USERNAME'
+const GITHUB_URL = 'https://github.com/Ranit-Ani'
 
 export default function GithubSection() {
   return (
