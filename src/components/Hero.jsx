@@ -57,7 +57,7 @@ function Terminal() {
       {BADGES.map((b) => (
         <motion.div
           key={b.label}
-          className={`absolute hidden select-none rounded-full border border-white/10 bg-ink-800/80 px-3 py-1.5 font-mono text-xs text-mist-light shadow-glow backdrop-blur md:block ${b.style}`}
+          className={`absolute z-20 hidden select-none rounded-full border border-white/10 bg-ink-800/80 px-3 py-1.5 font-mono text-xs text-mist-light shadow-glow backdrop-blur md:block ${b.style}`}
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, delay: b.delay, repeat: Infinity, ease: 'easeInOut' }}
         >
@@ -69,7 +69,7 @@ function Terminal() {
         ref={cardRef}
         onMouseMove={handleMouseMove}
         style={{ transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
-        className="card-surface shadow-card relative overflow-hidden rounded-2xl transition-transform duration-200 ease-out"
+        className="card-surface shadow-card relative z-10 overflow-hidden rounded-2xl transition-transform duration-200 ease-out"
       >
         <div className="flex items-center gap-1.5 border-b border-white/[0.06] px-4 py-3">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />

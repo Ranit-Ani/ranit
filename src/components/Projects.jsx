@@ -65,7 +65,7 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="mt-6 flex items-center gap-2 pt-2">
+                <div className="mt-auto flex items-center gap-2 pt-6">
                   <button
                     onClick={() => setActiveProject(project)}
                     className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/[0.1]"
