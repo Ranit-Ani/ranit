@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { GraduationCap } from 'lucide-react'
+import SectionIndex from './ui/SectionIndex.jsx'
 
 export default function Education() {
   return (
     <section id="education" className="relative px-6 pb-4 pt-4 md:px-10">
+      <SectionIndex number="06" label="Education" />
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

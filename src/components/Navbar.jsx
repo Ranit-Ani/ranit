@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
 import { useActiveSection } from '../hooks/useActiveSection.js'
+import CommandPalette from './CommandPalette.jsx'
 
 const LINKS = [
   { id: 'home', label: 'Home' },
@@ -9,9 +10,10 @@ const LINKS = [
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'journey', label: 'Journey' },
-  { id: 'notes', label: 'Notes' },
   { id: 'contact', label: 'Contact' },
 ]
+
+const RESUME_PATH = '/resume.pdf'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -75,8 +77,9 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          <CommandPalette />
           <a
-            href="/resume.pdf"
+            href={RESUME_PATH}
             download
             className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-white/25 hover:bg-white/[0.04]"
           >
@@ -125,11 +128,11 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="/resume.pdf"
+              href={RESUME_PATH}
               download
-              className="mt-1 flex items-center gap-1.5 rounded-xl border-t border-white/[0.06] px-4 py-3 text-sm font-medium text-mist"
+              className="mt-1 flex items-center gap-2 rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-white"
             >
-              <Download size={14} />
+              <Download size={15} />
               Download Resume
             </a>
           </motion.nav>

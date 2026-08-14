@@ -1,53 +1,41 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const BOOT_LINES = ['booting portfolio...', 'loading modules...', 'ready.']
+const BOOT_LINES = ['booting portfolio...', 'mounting sections...', 'ready.']
 
-export default function Preloader() {
-  const [visible, setVisible] = useState(false)
+export default function Preloader({ onDone }) {
+  const [visible, setVisible] = useState(true)
   const [lineIndex, setLineIndex] = useState(0)
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const alreadySeen = sessionStorage.getItem('preloader-seen')
-
-    if (prefersReduced || alreadySeen) return
-
-    setVisible(true)
-    sessionStorage.setItem('preloader-seen', 'true')
-
-    const interval = setInterval(() => {
-      setLineIndex((i) => {
-        if (i >= BOOT_LINES.length - 1) {
-          clearInterval(interval)
-          setTimeout(() => setVisible(false), 350)
-          return i
-        }
-        return i + 1
-      })
-    }, 280)
-
-    return () => clearInterval(interval)
-  }, [])
+    if (lineIndex >= BOOT_LINES.length - 1) {
+      const exitTimer = setTimeout(() => setVisible(false), 350)
+      return () => clearTimeout(exitTimer)
+    }
+    const t = setTimeout(() => setLineIndex((i) => i + 1), 260)
+    return () => clearTimeout(t)
+  }, [lineIndex])
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onDone}>
       {visible && (
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-ink"
+          transition={{ duration: 0.45, ease: 'easeInOut' }}
+          className="fixed inset-0 z-[300] flex items-center justify-center bg-ink"
         >
-          <div className="font-mono text-sm text-mist-light">
-            {BOOT_LINES.slice(0, lineIndex + 1).map((line, i) => (
-              <p key={line} className={i === lineIndex ? 'text-signal-cyan' : 'text-mist-dim'}>
-                <span className="text-signal-violet">$</span> {line}
-                {i === lineIndex && (
-                  <span className="ml-1 inline-block h-3.5 w-1.5 animate-blink bg-signal-cyan align-middle" />
-                )}
-              </p>
-            ))}
+          <div className="flex flex-col items-center gap-3">
+            <div className="card-surface flex min-w-[220px] items-center gap-1.5 rounded-xl px-4 py-3">
+              <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
+              <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
+              <span className="h-2 w-2 rounded-full bg-[#28c840]" />
+              <span className="ml-2 font-mono text-xs text-mist-dim">ranit@dev</span>
+            </div>
+            <p className="min-h-[20px] font-mono text-sm text-signal-cyan">
+              {BOOT_LINES[lineIndex]}
+              <span className="ml-0.5 inline-block h-4 w-2 animate-blink bg-signal-cyan align-middle" />
+            </p>
           </div>
         </motion.div>
       )}

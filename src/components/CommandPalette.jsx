@@ -1,125 +1,136 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowRight,
-  Briefcase,
-  Command,
-  FileText,
+  Download,
+  ExternalLink,
   Github,
-  GraduationCap,
-  Home,
-  Layers,
   Linkedin,
   Mail,
-  Map,
-  NotebookText,
-  User,
+  Search,
+  Terminal as TerminalIcon,
 } from 'lucide-react'
 
-const COMMANDS = [
-  { id: 'home', label: 'Go to Home', icon: Home, kind: 'section' },
-  { id: 'about', label: 'Go to About', icon: User, kind: 'section' },
-  { id: 'skills', label: 'Go to Skills', icon: Layers, kind: 'section' },
-  { id: 'projects', label: 'Go to Projects', icon: Briefcase, kind: 'section' },
-  { id: 'journey', label: 'Go to Journey', icon: Map, kind: 'section' },
-  { id: 'notes', label: 'Go to Notes', icon: NotebookText, kind: 'section' },
-  { id: 'github', label: 'Go to GitHub', icon: Github, kind: 'section' },
-  { id: 'education', label: 'Go to Education', icon: GraduationCap, kind: 'section' },
-  { id: 'contact', label: 'Go to Contact', icon: Mail, kind: 'section' },
+const SECTION_COMMANDS = [
+  { id: 'home', label: 'Home', hint: 'Back to top' },
+  { id: 'about', label: 'About', hint: 'Who I am' },
+  { id: 'skills', label: 'Skills', hint: 'Toolbox' },
+  { id: 'projects', label: 'Projects', hint: 'Things I\u2019ve built' },
+  { id: 'journey', label: 'Journey', hint: 'Where I\u2019m headed' },
+  { id: 'github', label: 'GitHub Activity', hint: 'Live stats' },
+  { id: 'education', label: 'Education', hint: 'BCA' },
+  { id: 'contact', label: 'Contact', hint: 'Get in touch' },
+]
+
+const LINK_COMMANDS = [
   {
-    id: 'resume',
-    label: 'Download Resume',
-    icon: FileText,
-    kind: 'link',
-    href: '/resume.pdf',
-  },
-  {
-    id: 'github-profile',
+    id: 'link-github',
     label: 'Open GitHub Profile',
+    hint: 'github.com/Ranit-Ani',
     icon: Github,
-    kind: 'link',
     href: 'https://github.com/Ranit-Ani',
   },
   {
-    id: 'linkedin-profile',
-    label: 'Open LinkedIn Profile',
+    id: 'link-linkedin',
+    label: 'Open LinkedIn',
+    hint: 'linkedin.com/in/ranit-ani',
     icon: Linkedin,
-    kind: 'link',
     href: 'https://www.linkedin.com/in/ranit-ani',
   },
   {
-    id: 'email',
-    label: 'Send an Email',
+    id: 'link-email',
+    label: 'Email Me',
+    hint: 'pramanickranit356@gmail.com',
     icon: Mail,
-    kind: 'link',
     href: 'mailto:pramanickranit356@gmail.com',
+  },
+  {
+    id: 'link-resume',
+    label: 'Download Resume',
+    hint: '/resume.pdf',
+    icon: Download,
+    href: '/resume.pdf',
+    download: true,
   },
 ]
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  const filtered = useMemo(() => {
-    if (!query.trim()) return COMMANDS
-    const q = query.toLowerCase()
-    return COMMANDS.filter((c) => c.label.toLowerCase().includes(q))
-  }, [query])
+  const [highlight, setHighlight] = useState(0)
+  const inputRef = useRef(null)
 
   useEffect(() => {
-    const onKey = (e) => {
-      const isTypingField =
-        e.target instanceof HTMLElement &&
-        ['INPUT', 'TEXTAREA'].includes(e.target.tagName) &&
-        !open
-
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k' && !isTypingField) {
+    const onKeyDown = (e) => {
+      const isToggle = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'
+      if (isToggle) {
         e.preventDefault()
         setOpen((v) => !v)
         return
       }
       if (e.key === 'Escape') setOpen(false)
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
       setQuery('')
-      setActiveIndex(0)
-    } else {
+      setHighlight(0)
+      const t = setTimeout(() => inputRef.current?.focus(), 30)
       document.body.style.overflow = 'hidden'
-    }
-    return () => {
-      document.body.style.overflow = ''
+      return () => {
+        clearTimeout(t)
+        document.body.style.overflow = ''
+      }
     }
   }, [open])
 
+  const results = useMemo(() => {
+    const all = [
+      ...SECTION_COMMANDS.map((c) => ({ ...c, type: 'section' })),
+      ...LINK_COMMANDS.map((c) => ({ ...c, type: 'link' })),
+    ]
+    if (!query.trim()) return all
+    const q = query.toLowerCase()
+    return all.filter(
+      (c) => c.label.toLowerCase().includes(q) || c.hint?.toLowerCase().includes(q)
+    )
+  }, [query])
+
   useEffect(() => {
-    setActiveIndex(0)
+    setHighlight(0)
   }, [query])
 
   const runCommand = (cmd) => {
-    if (cmd.kind === 'section') {
+    if (cmd.type === 'section') {
       document.getElementById(cmd.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    } else {
-      window.open(cmd.href, cmd.href.startsWith('mailto:') ? '_self' : '_blank', 'noreferrer')
+    } else if (cmd.type === 'link') {
+      const a = document.createElement('a')
+      a.href = cmd.href
+      if (cmd.href.startsWith('http') || cmd.href.startsWith('mailto')) {
+        a.target = '_blank'
+        a.rel = 'noreferrer'
+      }
+      if (cmd.download) a.setAttribute('download', '')
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
     }
     setOpen(false)
   }
 
-  const handleKeyNav = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setActiveIndex((i) => Math.min(i + 1, filtered.length - 1))
+      setHighlight((h) => Math.min(h + 1, results.length - 1))
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
-      setActiveIndex((i) => Math.max(i - 1, 0))
-    } else if (e.key === 'Enter' && filtered[activeIndex]) {
+      setHighlight((h) => Math.max(h - 1, 0))
+    } else if (e.key === 'Enter') {
       e.preventDefault()
-      runCommand(filtered[activeIndex])
+      if (results[highlight]) runCommand(results[highlight])
     }
   }
 
@@ -127,11 +138,14 @@ export default function CommandPalette() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="glass fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full px-4 py-2.5 font-mono text-xs text-mist-light shadow-card transition-colors hover:text-white md:flex"
         aria-label="Open command palette"
+        className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-xs text-mist-dim transition-colors hover:border-white/20 hover:text-white md:inline-flex"
       >
-        <Command size={14} />
-        <span className="rounded border border-white/15 px-1.5 py-0.5">&#8984;K</span>
+        <Search size={13} />
+        Jump to
+        <kbd className="ml-1 rounded border border-white/10 bg-white/[0.05] px-1.5 py-0.5 text-[10px] text-mist-light">
+          &#8984;K
+        </kbd>
       </button>
 
       <AnimatePresence>
@@ -140,7 +154,8 @@ export default function CommandPalette() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[110] flex items-start justify-center bg-black/70 p-4 pt-24 backdrop-blur-sm"
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-[200] flex items-start justify-center bg-black/70 p-4 pt-24 backdrop-blur-sm sm:pt-32"
             onClick={() => setOpen(false)}
             role="dialog"
             aria-modal="true"
@@ -152,46 +167,48 @@ export default function CommandPalette() {
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
               onClick={(e) => e.stopPropagation()}
-              className="glass w-full max-w-lg overflow-hidden rounded-2xl shadow-card"
+              className="card-surface shadow-card w-full max-w-lg overflow-hidden rounded-2xl"
             >
-              <div className="flex items-center gap-3 border-b border-white/[0.07] px-4 py-3">
-                <Command size={16} className="text-mist-dim" />
+              <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-3.5">
+                <TerminalIcon size={16} className="shrink-0 text-signal-cyan" />
                 <input
-                  autoFocus
+                  ref={inputRef}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyNav}
-                  placeholder="Jump to a section or action..."
-                  className="w-full bg-transparent text-sm text-white outline-none placeholder:text-mist-dim"
-                  aria-label="Search commands"
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type a command or search..."
+                  className="w-full bg-transparent font-mono text-sm text-white outline-none placeholder:text-mist-dim"
                 />
-                <kbd className="rounded border border-white/10 px-1.5 py-0.5 font-mono text-[10px] text-mist-dim">
+                <kbd className="hidden rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-mist-dim sm:block">
                   esc
                 </kbd>
               </div>
 
-              <ul className="max-h-80 overflow-y-auto p-2">
-                {filtered.length === 0 && (
-                  <li className="px-3 py-6 text-center text-sm text-mist-dim">No matches.</li>
+              <div className="max-h-80 overflow-y-auto p-2">
+                {results.length === 0 && (
+                  <p className="px-3 py-8 text-center text-sm text-mist-dim">No matches.</p>
                 )}
-                {filtered.map((cmd, i) => (
-                  <li key={cmd.id}>
+                {results.map((cmd, i) => {
+                  const Icon = cmd.icon ?? ArrowRight
+                  return (
                     <button
+                      key={cmd.id}
                       onClick={() => runCommand(cmd)}
-                      onMouseEnter={() => setActiveIndex(i)}
-                      className={`flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors ${
-                        i === activeIndex ? 'bg-white/[0.07] text-white' : 'text-mist-light'
+                      onMouseEnter={() => setHighlight(i)}
+                      className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
+                        highlight === i ? 'bg-white/[0.07] text-white' : 'text-mist-light'
                       }`}
                     >
-                      <span className="flex items-center gap-3">
-                        <cmd.icon size={15} className="text-signal-violetSoft" />
-                        {cmd.label}
-                      </span>
-                      {i === activeIndex && <ArrowRight size={14} className="text-mist-dim" />}
+                      <Icon size={15} className="shrink-0 text-signal-violetSoft" />
+                      <span className="flex-1 text-sm">{cmd.label}</span>
+                      <span className="font-mono text-xs text-mist-dim">{cmd.hint}</span>
+                      {cmd.type === 'link' && !cmd.download && (
+                        <ExternalLink size={13} className="text-mist-dim" />
+                      )}
                     </button>
-                  </li>
-                ))}
-              </ul>
+                  )
+                })}
+              </div>
             </motion.div>
           </motion.div>
         )}

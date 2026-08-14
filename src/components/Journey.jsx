@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { BookOpen, Braces, Cpu, Hammer } from 'lucide-react'
-import SectionKicker from './SectionKicker.jsx'
+import SectionIndex from './ui/SectionIndex.jsx'
 
 const STEPS = [
   {
@@ -28,8 +28,11 @@ const STEPS = [
 export default function Journey() {
   return (
     <section id="journey" className="relative px-6 py-28 md:px-10">
+      <SectionIndex number="04" label="Journey" />
       <div className="mx-auto max-w-4xl">
-        <SectionKicker index={4} label="My Journey" />
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal-cyan">
+          My Journey
+        </p>
         <h2 className="font-display mt-3 text-3xl font-semibold text-white sm:text-4xl">
           Where I&rsquo;m at, and where I&rsquo;m headed.
         </h2>
