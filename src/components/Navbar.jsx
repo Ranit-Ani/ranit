@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Download, Menu, X } from 'lucide-react'
 import { useActiveSection } from '../hooks/useActiveSection.js'
 
 const LINKS = [
@@ -9,6 +9,7 @@ const LINKS = [
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'journey', label: 'Journey' },
+  { id: 'notes', label: 'Notes' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -73,13 +74,23 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          onClick={handleClick('contact')}
-          className="hidden rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition-colors hover:border-signal-violet/50 hover:bg-signal-violet/10 md:inline-block"
-        >
-          Let&rsquo;s talk
-        </a>
+        <div className="hidden items-center gap-2 md:flex">
+          <a
+            href="/resume.pdf"
+            download
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+          >
+            <Download size={14} />
+            Resume
+          </a>
+          <a
+            href="#contact"
+            onClick={handleClick('contact')}
+            className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition-colors hover:border-signal-violet/50 hover:bg-signal-violet/10"
+          >
+            Let&rsquo;s talk
+          </a>
+        </div>
 
         <button
           onClick={() => setOpen((v) => !v)}
@@ -113,6 +124,14 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <a
+              href="/resume.pdf"
+              download
+              className="mt-1 flex items-center gap-1.5 rounded-xl border-t border-white/[0.06] px-4 py-3 text-sm font-medium text-mist"
+            >
+              <Download size={14} />
+              Download Resume
+            </a>
           </motion.nav>
         )}
       </AnimatePresence>

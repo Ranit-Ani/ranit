@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, Send } from 'lucide-react'
+import SectionKicker from './SectionKicker.jsx'
 
 const EMAIL = 'pramanickranit356@gmail.com'
 const GITHUB_URL = 'https://github.com/Ranit-Ani'
@@ -53,9 +54,7 @@ export default function Contact() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal-cyan">
-              Contact
-            </p>
+            <SectionKicker index={6} label="Contact" />
             <h2 className="font-display mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
               Have an idea? Let&rsquo;s build something together.
             </h2>
