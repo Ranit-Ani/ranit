@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles } from 'lucide-react'
-import Magnetic from './ui/Magnetic.jsx'
-import SectionIndex from './ui/SectionIndex.jsx'
-
-const RESUME_PATH = '/resume.pdf'
+import { ArrowRight, Github, Linkedin, Mail, Sparkles } from 'lucide-react'
 
 const TERMINAL_LINES = [
   { text: '$ whoami', type: 'cmd' },
@@ -105,7 +101,6 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-screen items-center px-6 pb-16 pt-32 md:px-10"
     >
-      <SectionIndex number="00" label="Home" />
       <div className="mx-auto grid w-full max-w-6xl items-center gap-14 md:grid-cols-2 md:gap-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -129,41 +124,27 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Magnetic>
-              <a
-                href="#projects"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="group inline-flex items-center gap-2 rounded-full bg-signal-violet px-5 py-3 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5"
-              >
-                View My Projects
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-              </a>
-            </Magnetic>
-            <Magnetic>
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="inline-flex items-center rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-white/25 hover:bg-white/[0.04]"
-              >
-                Contact Me
-              </a>
-            </Magnetic>
-            <Magnetic>
-              <a
-                href={RESUME_PATH}
-                download
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-mist-light transition-colors hover:border-white/25 hover:bg-white/[0.04] hover:text-white"
-              >
-                <Download size={16} />
-                Resume
-              </a>
-            </Magnetic>
+            <a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+              }}
+              className="group inline-flex items-center gap-2 rounded-full bg-signal-violet px-5 py-3 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5"
+            >
+              View My Projects
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }}
+              className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+            >
+              Contact Me
+            </a>
           </div>
 
           <div className="mt-8 flex items-center gap-4 text-mist">

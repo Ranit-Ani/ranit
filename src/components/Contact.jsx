@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, Send } from 'lucide-react'
-import SectionIndex from './ui/SectionIndex.jsx'
-import Magnetic from './ui/Magnetic.jsx'
 
 const EMAIL = 'pramanickranit356@gmail.com'
 const GITHUB_URL = 'https://github.com/Ranit-Ani'
@@ -47,7 +45,6 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative px-6 py-28 md:px-10">
-      <SectionIndex number="07" label="Contact" />
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-14 md:grid-cols-2 md:gap-16">
           <motion.div
@@ -168,15 +165,13 @@ export default function Contact() {
               )}
             </div>
 
-            <Magnetic className="block w-full" strength={0.15}>
-              <button
-                type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal-violet px-5 py-3 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5"
-              >
-                <Send size={15} />
-                Send Message
-              </button>
-            </Magnetic>
+            <button
+              type="submit"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal-violet px-5 py-3 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5"
+            >
+              <Send size={15} />
+              Send Message
+            </button>
 
             {status === 'sent' && (
               <p role="status" className="text-center text-xs text-emerald-400">

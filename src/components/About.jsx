@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { Code2, FolderGit2, GraduationCap, Layers } from 'lucide-react'
-import SectionIndex from './ui/SectionIndex.jsx'
 
 const STATS = [
   { icon: GraduationCap, label: 'Years Learning', value: 'Add your count' },
@@ -17,7 +16,6 @@ const fadeUp = {
 export default function About() {
   return (
     <section id="about" className="relative px-6 py-28 md:px-10">
-      <SectionIndex number="01" label="About" />
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
