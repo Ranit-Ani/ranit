@@ -51,12 +51,12 @@ function RepoStats({ url }) {
 
 function StatBlock({ icon: Icon, label, value, status }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-      <div className="flex items-center gap-2 text-mist-dim">
-        <Icon size={13} />
-        <p className="text-[11px] uppercase tracking-wide">{label}</p>
+    <div className="min-w-0 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3 sm:px-4">
+      <div className="flex items-center gap-1.5 text-mist-dim">
+        <Icon size={13} className="shrink-0" />
+        <p className="truncate text-[10px] uppercase tracking-wide sm:text-[11px]">{label}</p>
       </div>
-      <p className="font-display mt-1.5 text-xl font-semibold text-white">
+      <p className="font-display mt-1.5 text-lg font-semibold text-white sm:text-xl">
         {status === 'loading' ? (
           <span className="inline-block h-5 w-10 animate-pulse rounded bg-white/10 align-middle" />
         ) : status === 'success' ? (
@@ -102,7 +102,7 @@ export default function GithubSection() {
               View GitHub Profile
             </a>
 
-            <div className="mt-6 grid max-w-sm grid-cols-3 gap-2.5">
+            <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-2.5">
               <StatBlock
                 icon={Github}
                 label="Repos"
