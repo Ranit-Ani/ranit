@@ -34,12 +34,20 @@ export default function ProjectModal({ project, onClose }) {
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
-            className="card-surface relative w-full max-w-2xl rounded-2xl p-6 sm:p-8"
+            className="card-surface relative w-full max-w-2xl overflow-hidden rounded-2xl p-6 sm:p-8"
           >
+            {project.image && (
+              <img
+                src={project.image}
+                alt={`${project.name} screenshot`}
+                className="-mx-6 -mt-6 mb-6 h-48 w-[calc(100%+3rem)] object-cover object-top sm:-mx-8 sm:-mt-8 sm:mb-8 sm:h-56 sm:w-[calc(100%+4rem)]"
+                loading="lazy"
+              />
+            )}
             <button
               onClick={onClose}
               aria-label="Close project details"
-              className="absolute right-5 top-5 rounded-full border border-white/10 p-2 text-mist-light transition-colors hover:border-white/25 hover:text-white"
+              className="absolute right-5 top-5 z-10 rounded-full border border-white/10 bg-ink/60 p-2 text-mist-light backdrop-blur-sm transition-colors hover:border-white/25 hover:text-white"
             >
               <X size={16} />
             </button>

@@ -1,6 +1,7 @@
 export const projects = [
   {
     id: 'smart-car-parking',
+    image: '/projects/smart-car-parking.png', // e.g. '/projects/smart-car-parking.png' — drop the file in public/projects/ and set this
     name: 'Smart Car Parking Management System',
     tagline: 'Slot, vehicle and staff management for a modern parking facility.',
     description:
@@ -32,6 +33,7 @@ export const projects = [
   },
   {
     id: 'college-event-management',
+    image: '', // e.g. '/projects/college-event-management.png' — drop the file in public/projects/ and set this
     name: 'College Event Management System',
     tagline: 'Registrations, admin controls and OTP-based auth for campus events.',
     description:
@@ -61,6 +63,7 @@ export const projects = [
   },
   {
     id: 'ai-voice-assistant',
+    image: '', // e.g. '/projects/ai-voice-assistant.png' — drop the file in public/projects/ and set this
     name: 'AI / Voice Assistant',
     tagline: 'A Python voice assistant exploring speech recognition and AI APIs.',
     description:

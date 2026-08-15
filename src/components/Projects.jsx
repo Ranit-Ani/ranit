@@ -57,10 +57,21 @@ export default function Projects() {
               <div
                 className={`relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br ${ACCENTS[project.accent]} to-transparent`}
               >
-                <div className="dot-pattern absolute inset-0 opacity-40 transition-transform duration-500 group-hover:scale-110" />
-                <span className="font-mono text-4xl font-semibold text-white/20">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={`${project.name} screenshot`}
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <>
+                    <div className="dot-pattern absolute inset-0 opacity-40 transition-transform duration-500 group-hover:scale-110" />
+                    <span className="font-mono text-4xl font-semibold text-white/20">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </>
+                )}
               </div>
 
               <div className="flex flex-1 flex-col p-6">
