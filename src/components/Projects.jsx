@@ -3,11 +3,25 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight, ExternalLink, Github } from 'lucide-react'
 import { projects } from '../data/projects.js'
 import ProjectModal from './ProjectModal.jsx'
+import SectionKicker from './SectionKicker.jsx'
+import SpotlightCard from './SpotlightCard.jsx'
 
 const ACCENTS = {
   violet: 'from-signal-violet/25 via-signal-violet/5',
   cyan: 'from-signal-cyan/25 via-signal-cyan/5',
   amber: 'from-signal-amber/25 via-signal-amber/5',
+}
+
+const ACCENT_BUTTON = {
+  violet: 'hover:bg-signal-violet/15 hover:text-signal-violetSoft',
+  cyan: 'hover:bg-signal-cyan/10 hover:text-signal-cyan',
+  amber: 'hover:bg-signal-amber/10 hover:text-signal-amber',
+}
+
+const ACCENT_BORDER = {
+  violet: 'hover:border-signal-violet/50',
+  cyan: 'hover:border-signal-cyan/50',
+  amber: 'hover:border-signal-amber/50',
 }
 
 export default function Projects() {
@@ -18,9 +32,7 @@ export default function Projects() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal-cyan">
-              Projects
-            </p>
+            <SectionKicker index={3} label="Projects" />
             <h2 className="font-display mt-3 text-3xl font-semibold text-white sm:text-4xl">
               Things I&rsquo;ve built.
             </h2>
@@ -33,13 +45,14 @@ export default function Projects() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
-            <motion.article
+            <SpotlightCard
               key={project.id}
+              as={motion.article}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="group card-surface relative flex flex-col overflow-hidden rounded-2xl transition-colors hover:border-white/20"
+              className={`group flex flex-col transition-colors hover:border-white/20 ${ACCENT_BORDER[project.accent]}`}
             >
               <div
                 className={`relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br ${ACCENTS[project.accent]} to-transparent`}
@@ -68,7 +81,7 @@ export default function Projects() {
                 <div className="mt-auto flex items-center gap-2 pt-6">
                   <button
                     onClick={() => setActiveProject(project)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/[0.1]"
+                    className={`inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-white transition-colors ${ACCENT_BUTTON[project.accent]}`}
                   >
                     View Details
                     <ArrowUpRight size={15} />
@@ -78,7 +91,7 @@ export default function Projects() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`${project.name} GitHub repository`}
-                    className="rounded-full border border-white/10 p-2.5 text-mist-light transition-colors hover:border-white/25 hover:text-white"
+                    className={`rounded-full border border-white/10 p-2.5 text-mist-light transition-colors hover:text-white ${ACCENT_BORDER[project.accent]}`}
                   >
                     <Github size={16} />
                   </a>
@@ -88,14 +101,14 @@ export default function Projects() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`${project.name} live demo`}
-                      className="rounded-full border border-white/10 p-2.5 text-mist-light transition-colors hover:border-white/25 hover:text-white"
+                      className={`rounded-full border border-white/10 p-2.5 text-mist-light transition-colors hover:text-white ${ACCENT_BORDER[project.accent]}`}
                     >
                       <ExternalLink size={16} />
                     </a>
                   )}
                 </div>
               </div>
-            </motion.article>
+            </SpotlightCard>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Code2, FolderGit2, GraduationCap, Layers } from 'lucide-react'
+import SectionKicker from './SectionKicker.jsx'
 
 const STATS = [
   { icon: GraduationCap, label: 'Years Learning', value: 'Add your count' },
@@ -26,9 +27,7 @@ export default function About() {
           className="grid gap-14 md:grid-cols-[1fr_1.1fr] md:gap-16"
         >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal-cyan">
-              About Me
-            </p>
+            <SectionKicker index={1} label="About Me" />
             <h2 className="font-display mt-3 text-3xl font-semibold text-white sm:text-4xl">
               Still a student.{' '}
               <span className="text-mist">Already building for real.</span>

@@ -1,12 +1,79 @@
 import { motion } from 'framer-motion'
-import { Github, GitFork, Star } from 'lucide-react'
+import { Github, GitFork, Star, Users } from 'lucide-react'
 import { projects } from '../data/projects.js'
+import { useGithubStats } from '../hooks/useGithubStats.js'
+import { useGithubRepo } from '../hooks/useGithubRepo.js'
+import SectionKicker from './SectionKicker.jsx'
 
-const GITHUB_URL = 'https://github.com/Ranit-Ani'
+const GITHUB_USERNAME = 'Ranit-Ani'
+const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`
+
+function RepoStats({ url }) {
+  const { status, data } = useGithubRepo(url)
+
+  if (status === 'success') {
+    return (
+      <>
+        <span className="flex items-center gap-1 text-[11px]">
+          <Star size={12} /> {data.stars}
+        </span>
+        <span className="flex items-center gap-1 text-[11px]">
+          <GitFork size={12} /> {data.forks}
+        </span>
+      </>
+    )
+  }
+
+  if (status === 'loading') {
+    return (
+      <>
+        <span className="flex items-center gap-1 text-[11px] text-mist-dim/60">
+          <Star size={12} /> &middot;&middot;
+        </span>
+        <span className="flex items-center gap-1 text-[11px] text-mist-dim/60">
+          <GitFork size={12} /> &middot;&middot;
+        </span>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <span className="flex items-center gap-1 text-[11px]">
+        <Star size={12} /> &mdash;
+      </span>
+      <span className="flex items-center gap-1 text-[11px]">
+        <GitFork size={12} /> &mdash;
+      </span>
+    </>
+  )
+}
+
+function StatBlock({ icon: Icon, label, value, status }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+      <div className="flex items-center gap-2 text-mist-dim">
+        <Icon size={13} />
+        <p className="text-[11px] uppercase tracking-wide">{label}</p>
+      </div>
+      <p className="font-display mt-1.5 text-xl font-semibold text-white">
+        {status === 'loading' ? (
+          <span className="inline-block h-5 w-10 animate-pulse rounded bg-white/10 align-middle" />
+        ) : status === 'success' ? (
+          value
+        ) : (
+          '—'
+        )}
+      </p>
+    </div>
+  )
+}
 
 export default function GithubSection() {
+  const { status, data } = useGithubStats(GITHUB_USERNAME)
+
   return (
-    <section className="relative px-6 py-24 md:px-10">
+    <section id="github" className="relative px-6 py-24 md:px-10">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -15,16 +82,15 @@ export default function GithubSection() {
           transition={{ duration: 0.5 }}
           className="card-surface flex flex-col gap-8 rounded-2xl p-8 md:flex-row md:items-center md:justify-between"
         >
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal-cyan">
-              GitHub
-            </p>
+          <div className="flex-1">
+            <SectionKicker index={6} label="GitHub" />
             <h2 className="font-display mt-3 text-2xl font-semibold text-white sm:text-3xl">
               Most of my code lives here.
             </h2>
             <p className="mt-3 max-w-md text-sm text-mist">
-              Repository counts and contribution activity are intentionally left out until this
-              section is connected to the live GitHub API &mdash; no invented statistics.
+              {status === 'error'
+                ? "Live stats couldn't be loaded right now — GitHub's API may be rate-limiting or unreachable. Try again shortly."
+                : 'Live from the GitHub API — public repositories, followers and repo activity, pulled in real time.'}
             </p>
             <a
               href={GITHUB_URL}
@@ -35,6 +101,27 @@ export default function GithubSection() {
               <Github size={16} />
               View GitHub Profile
             </a>
+
+            <div className="mt-6 grid max-w-sm grid-cols-3 gap-2.5">
+              <StatBlock
+                icon={Github}
+                label="Repos"
+                value={data?.publicRepos}
+                status={status}
+              />
+              <StatBlock
+                icon={Users}
+                label="Followers"
+                value={data?.followers}
+                status={status}
+              />
+              <StatBlock
+                icon={Star}
+                label="Following"
+                value={data?.following}
+                status={status}
+              />
+            </div>
           </div>
 
           <div className="grid w-full max-w-xs grid-cols-1 gap-3 sm:grid-cols-2 md:w-auto">
@@ -48,12 +135,7 @@ export default function GithubSection() {
               >
                 <p className="truncate font-mono text-xs text-white">{p.name}</p>
                 <div className="mt-3 flex items-center gap-3 text-mist-dim">
-                  <span className="flex items-center gap-1 text-[11px]">
-                    <Star size={12} /> &mdash;
-                  </span>
-                  <span className="flex items-center gap-1 text-[11px]">
-                    <GitFork size={12} /> &mdash;
-                  </span>
+                  <RepoStats url={p.github} />
                 </div>
               </a>
             ))}

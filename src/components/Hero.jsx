@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Github, Linkedin, Mail, Sparkles } from 'lucide-react'
+import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles } from 'lucide-react'
+import { useMagnetic } from '../hooks/useMagnetic.js'
 
 const TERMINAL_LINES = [
   { text: '$ whoami', type: 'cmd' },
@@ -95,6 +96,15 @@ function Terminal() {
   )
 }
 
+function MagneticLink({ className, children, ...rest }) {
+  const ref = useMagnetic(0.25)
+  return (
+    <a ref={ref} className={className} {...rest}>
+      {children}
+    </a>
+  )
+}
+
 export default function Hero() {
   return (
     <section
@@ -124,7 +134,7 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
+            <MagneticLink
               href="#projects"
               onClick={(e) => {
                 e.preventDefault()
@@ -134,8 +144,8 @@ export default function Hero() {
             >
               View My Projects
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-            </a>
-            <a
+            </MagneticLink>
+            <MagneticLink
               href="#contact"
               onClick={(e) => {
                 e.preventDefault()
@@ -144,7 +154,15 @@ export default function Hero() {
               className="rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-white/25 hover:bg-white/[0.04]"
             >
               Contact Me
-            </a>
+            </MagneticLink>
+            <MagneticLink
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-mist-light transition-colors hover:border-white/25 hover:bg-white/[0.04] hover:text-white"
+            >
+              <Download size={16} />
+              Resume
+            </MagneticLink>
           </div>
 
           <div className="mt-8 flex items-center gap-4 text-mist">

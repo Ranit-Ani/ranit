@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion'
 import { skillGroups } from '../data/skills.js'
+import SectionKicker from './SectionKicker.jsx'
+import SpotlightCard from './SpotlightCard.jsx'
 
 export default function Skills() {
   return (
     <section id="skills" className="relative px-6 py-28 md:px-10">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-xl">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal-cyan">
-            Skills
-          </p>
+          <SectionKicker index={2} label="Skills" />
           <h2 className="font-display mt-3 text-3xl font-semibold text-white sm:text-4xl">
             The toolbox I reach for.
           </h2>
@@ -20,15 +20,14 @@ export default function Skills() {
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {skillGroups.map((group, gi) => (
-            <motion.div
+            <SpotlightCard
               key={group.label}
+              as={motion.div}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.45, delay: gi * 0.06 }}
-              className={`card-surface rounded-2xl p-6 ${
-                group.exploring ? 'md:col-span-2' : ''
-              }`}
+              className={`p-6 ${group.exploring ? 'md:col-span-2' : ''}`}
             >
               <div className="flex items-center gap-2">
                 <h3 className="font-display text-sm font-semibold text-white">{group.label}</h3>
@@ -48,7 +47,7 @@ export default function Skills() {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </SpotlightCard>
           ))}
         </div>
       </div>

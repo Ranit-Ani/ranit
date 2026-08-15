@@ -5,14 +5,18 @@ import About from './components/About.jsx'
 import Skills from './components/Skills.jsx'
 import Projects from './components/Projects.jsx'
 import Journey from './components/Journey.jsx'
+import Notes from './components/Notes.jsx'
 import GithubSection from './components/GithubSection.jsx'
 import Education from './components/Education.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
+import Preloader from './components/Preloader.jsx'
+import CommandPalette from './components/CommandPalette.jsx'
 
 export default function App() {
   return (
     <div className="relative min-h-screen font-body text-white">
+      <Preloader />
       <Background />
       <Navbar />
       <main>
@@ -21,11 +25,13 @@ export default function App() {
         <Skills />
         <Projects />
         <Journey />
+        <Notes />
         <GithubSection />
         <Education />
         <Contact />
       </main>
       <Footer />
+      <CommandPalette />
     </div>
   )
 }
