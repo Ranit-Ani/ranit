@@ -22,7 +22,7 @@ export default function ProjectModal({ project, onClose }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm sm:p-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center overscroll-contain bg-black/70 p-4 backdrop-blur-sm sm:p-6"
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -48,7 +48,7 @@ export default function ProjectModal({ project, onClose }) {
 
             {/* Scrollable body — everything below (image + text) scrolls inside the
                 card while the card itself stays fixed and fully on-screen. */}
-            <div className="overflow-y-auto">
+            <div className="overflow-y-auto overscroll-contain">
               {project.image && (
                 <img
                   src={project.image}

@@ -170,7 +170,7 @@ export default function CommandPalette() {
                 </kbd>
               </div>
 
-              <ul className="max-h-80 overflow-y-auto p-2">
+              <ul className="max-h-80 overflow-y-auto overscroll-contain p-2">
                 {filtered.length === 0 && (
                   <li className="px-3 py-6 text-center text-sm text-mist-dim">No matches.</li>
                 )}
