@@ -6,7 +6,7 @@ export const projects = [
     tagline: 'Slot, vehicle and staff management for a modern parking facility.',
     description:
       'A full-stack smart parking management system designed to manage parking slots, vehicles, users, staff, and administrators.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'JavaScript'],
+    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'JavaScript', 'Vite', 'Bootstrap'],
     features: [
       'User authentication',
       'Admin dashboard',
