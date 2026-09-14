@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, Send } from 'lucide-react'
 import emailjs from '@emailjs/browser'
 import SectionKicker from './SectionKicker.jsx'
 
-const EMAIL = 'pramanickranit356@gmail.com'
+const EMAIL = 'ranitpramanick356@gmail.com'
 const GITHUB_URL = 'https://github.com/Ranit-Ani'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/ranit-ani'
 
