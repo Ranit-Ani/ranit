@@ -1,12 +1,22 @@
 import { motion } from 'framer-motion'
-import { Code2, FolderGit2, GraduationCap, Layers } from 'lucide-react'
+import { FolderGit2, GraduationCap, Layers } from 'lucide-react'
 import SectionKicker from './SectionKicker.jsx'
+import { skillGroups } from '../data/skills.js'
+
+// Started coding/learning to build in 2024 — years learning is derived
+// from this so it stays accurate automatically as time passes.
+const CODING_START_YEAR = 2024
+const yearsLearning = Math.max(1, new Date().getFullYear() - CODING_START_YEAR)
+
+// Total distinct technologies across all skill groups (including
+// "Currently Exploring") — pulled straight from data/skills.js so this
+// number updates itself whenever the skills list changes.
+const techCount = new Set(skillGroups.flatMap((g) => g.items)).size
 
 const STATS = [
-  { icon: GraduationCap, label: 'Years Learning', value: 'Add your count' },
+  { icon: GraduationCap, label: 'Years Learning', value: `${yearsLearning}+` },
   { icon: FolderGit2, label: 'Projects Built', value: '3+' },
-  { icon: Layers, label: 'Technologies', value: 'Add your count' },
-  { icon: Code2, label: 'GitHub Contributions', value: 'Connect GitHub API' },
+  { icon: Layers, label: 'Technologies', value: `${techCount}+` },
 ]
 
 const fadeUp = {
@@ -64,7 +74,7 @@ export default function About() {
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeUp}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4"
+          className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3"
         >
           {STATS.map(({ icon: Icon, label, value }) => (
             <div
