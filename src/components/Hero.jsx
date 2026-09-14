@@ -5,7 +5,7 @@ import { useMagnetic } from '../hooks/useMagnetic.js'
 
 const TERMINAL_LINES = [
   { text: '$ whoami', type: 'cmd' },
-  { text: 'ranit_pramanick — full-stack developer', type: 'out' },
+  { text: 'ranit_pramanick — software developer', type: 'out' },
   { text: '$ cat focus.json', type: 'cmd' },
   {
     text: '{ "stack": ["React", "Node.js", "Python", "MongoDB"], "status": "building" }',

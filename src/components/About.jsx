@@ -51,7 +51,7 @@ export default function About() {
           <div className="space-y-5 text-base leading-relaxed text-mist">
             <p>
               I&rsquo;m a BCA student based in West Bengal, India, working toward becoming a
-              full-stack developer. Most of my time goes into building practical applications
+              software developer. Most of my time goes into building practical applications
               rather than just studying theory &mdash; I&rsquo;d rather understand a concept by
               shipping something with it.
             </p>
