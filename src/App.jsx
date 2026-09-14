@@ -6,7 +6,6 @@ import Skills from './components/Skills.jsx'
 import Projects from './components/Projects.jsx'
 import Journey from './components/Journey.jsx'
 import Notes from './components/Notes.jsx'
-import GithubSection from './components/GithubSection.jsx'
 import Education from './components/Education.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
@@ -26,7 +25,6 @@ export default function App() {
         <Projects />
         <Journey />
         <Notes />
-        <GithubSection />
         <Education />
         <Contact />
       </main>

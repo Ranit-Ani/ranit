@@ -1,11 +1,21 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, Send } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 import SectionKicker from './SectionKicker.jsx'
 
 const EMAIL = 'pramanickranit356@gmail.com'
 const GITHUB_URL = 'https://github.com/Ranit-Ani'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/ranit-ani'
+
+// EmailJS credentials — get these from your EmailJS dashboard
+// (Email Services → Service ID, Email Templates → Template ID,
+// Account → General → Public Key) and put them in a `.env` file
+// as VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID and
+// VITE_EMAILJS_PUBLIC_KEY. Never commit the .env file.
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 function validate(values) {
   const errors = {}
@@ -22,9 +32,10 @@ function validate(values) {
 }
 
 export default function Contact() {
+  const formRef = useRef(null)
   const [values, setValues] = useState({ name: '', email: '', message: '' })
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | sent
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
 
   const onChange = (e) => {
     const { name, value } = e.target
@@ -37,11 +48,25 @@ export default function Contact() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
 
-    // NOTE: This form is UI-only. Wire it up to an email service
-    // (e.g. Formspree, EmailJS, or a custom API route) to send messages.
-    console.info('Contact form submitted (no backend connected yet):', values)
-    setStatus('sent')
-    setValues({ name: '', email: '', message: '' })
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error(
+        'EmailJS is not configured — set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID and VITE_EMAILJS_PUBLIC_KEY in your .env file.'
+      )
+      setStatus('error')
+      return
+    }
+
+    setStatus('sending')
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, { publicKey: PUBLIC_KEY }).then(
+      () => {
+        setStatus('sent')
+        setValues({ name: '', email: '', message: '' })
+      },
+      (err) => {
+        console.error('EmailJS send failed:', err)
+        setStatus('error')
+      }
+    )
   }
 
   return (
@@ -90,6 +115,7 @@ export default function Contact() {
           </motion.div>
 
           <motion.form
+            ref={formRef}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -166,16 +192,24 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal-violet px-5 py-3 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5"
+              disabled={status === 'sending'}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal-violet px-5 py-3 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
             >
               <Send size={15} />
-              Send Message
+              {status === 'sending' ? 'Sending…' : 'Send Message'}
             </button>
 
             {status === 'sent' && (
               <p role="status" className="text-center text-xs text-emerald-400">
-                Thanks! This form isn&rsquo;t wired to an email service yet &mdash; connect one
-                (e.g. Formspree or EmailJS) to receive real messages.
+                Thanks for reaching out &mdash; your message has been sent. I&rsquo;ll get back to
+                you soon.
+              </p>
+            )}
+
+            {status === 'error' && (
+              <p role="status" className="text-center text-xs text-red-400">
+                Something went wrong sending your message. Please try again, or email me directly
+                at {EMAIL}.
               </p>
             )}
           </motion.form>
