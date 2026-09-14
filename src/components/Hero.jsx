@@ -128,7 +128,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 max-w-lg text-base leading-relaxed text-mist sm:text-lg">
-            I&rsquo;m Ranit Pramanick, a BCA student and aspiring full-stack developer. I build
+            I&rsquo;m Ranit Pramanick, a BCA student and aspiring software developer. I build
             real-world web applications, explore backend systems and databases, and I&rsquo;m
             slowly getting my hands dirty with AI/ML along the way.
           </p>
