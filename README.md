@@ -57,6 +57,9 @@ portfolio/
   email `ranit@example.com` in `Hero.jsx`, `Contact.jsx`, `Footer.jsx` and `GithubSection.jsx`.
 - **Projects** — edit `src/data/projects.js`. Each project object drives both the card and the
   detail modal, including GitHub/demo links, features, and the "what I learned" writeup.
+  The **SendTo** project (live at https://sendto.onrender.com) is included; replace its
+  `github` link in `projects.js` with the real repository URL once it is pushed, and swap
+  `public/projects/sendto.svg` for a real screenshot if you prefer.
 - **Stats in About** — `src/components/About.jsx` has neutral placeholders
   (`Add your count`) for years learning / technologies, so no numbers are invented. Fill in your
   real numbers, or connect the GitHub contributions stat to the GitHub API.

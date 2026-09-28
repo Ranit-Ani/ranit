@@ -24,6 +24,7 @@ export default {
           violetSoft: '#a78bfa',
           cyan: '#22d3ee',
           amber: '#f5a524',
+          rose: '#fb7185',
         },
       },
       fontFamily: {

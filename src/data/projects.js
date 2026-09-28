@@ -32,34 +32,36 @@ export const projects = [
     accent: 'violet',
   },
   {
-    id: 'college-event-management',
-    image: '', // e.g. '/projects/college-event-management.png' — drop the file in public/projects/ and set this
-    name: 'College Event Management System',
-    tagline: 'Registrations, admin controls and OTP-based auth for campus events.',
+    id: 'sendto',
+    image: '/projects/sendto.svg',
+    name: 'SendTo — Share Files & Text',
+    tagline: 'Share files or text with a 6-digit code or QR. No account needed.',
     description:
-      'A web application for managing college events, registrations, users, and administrative activities.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Firebase'],
+      'A full-stack file and text sharing web app. The sender gets a 6-digit code and a QR code; the receiver enters the code or scans the QR to get exactly what was shared, with optional password, expiry and view limit.',
+    stack: ['React', 'Vite', 'Node.js', 'Express', 'MongoDB', 'Google Drive API'],
     features: [
-      'User registration/login',
-      'Event management',
-      'Event registration',
-      'Admin panel',
-      'OTP-based authentication',
-      'Database integration',
+      'Share files or text with a 6-digit code',
+      'QR code generation and in-browser QR scanner',
+      'Optional password, expiry time and view limit',
+      'Files streamed to private Google Drive storage',
+      'Text export as TXT, Markdown, HTML, CSV, JSON, PDF and DOCX',
+      'Automatic cleanup of expired shares',
+      'Rate limiting and secure headers',
+      'Light / dark theme and responsive interface',
     ],
     problem:
-      'Coordinating student event registrations manually through forms and spreadsheets does not scale and makes verification of student identity difficult.',
+      'Sending a file or a snippet of text to another device or person usually means logging in, installing an app, or emailing yourself, which is slow for a one-off transfer.',
     solution:
-      'Built an event platform with OTP-based authentication for verified sign-ups, an admin panel for creating and managing events, and a MongoDB-backed registration flow.',
+      'Built a no-account sharing flow: upload or paste, get a short code (and QR), and the receiver unlocks it with that code. Passwords, expiry and view limits give the sender control over how long and how often it can be opened.',
     architecture:
-      'React client, Express/Node.js API, MongoDB for event and user data, and Firebase used to support OTP-based authentication.',
+      'React SPA (Vite) served by an Express API. MongoDB (Mongoose) stores share codes, metadata and counters, while uploaded files are streamed straight into a private Google Drive folder and streamed back on download, so nothing is kept on the server disk.',
     challenges:
-      'Integrating OTP verification cleanly into the authentication flow, and keeping the admin panel simple while covering event creation, editing and registration tracking.',
+      'Streaming large uploads and downloads through the server without buffering them, generating unique short codes safely, and cleaning up expired shares from both the database and Google Drive.',
     learned:
-      'Hands-on experience combining a third-party auth flow (OTP) with a custom Node.js backend, and structuring an admin-facing panel separately from the public-facing app.',
-    github: 'https://github.com/YOUR_USERNAME/college-event-management',
-    demo: '',
-    accent: 'cyan',
+      'Working with the Google Drive API and OAuth, streaming file transfers in Node.js, designing expiring and rate-limited access flows, and deploying a full-stack app on Render.',
+    github: 'https://github.com/Ranit-Ani/sendto',
+    demo: 'https://sendto.onrender.com',
+    accent: 'rose',
   },
   {
     id: 'ai-voice-assistant',

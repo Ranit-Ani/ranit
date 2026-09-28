@@ -10,18 +10,21 @@ const ACCENTS = {
   violet: 'from-signal-violet/25 via-signal-violet/5',
   cyan: 'from-signal-cyan/25 via-signal-cyan/5',
   amber: 'from-signal-amber/25 via-signal-amber/5',
+  rose: 'from-signal-rose/25 via-signal-rose/5',
 }
 
 const ACCENT_BUTTON = {
   violet: 'hover:bg-signal-violet/15 hover:text-signal-violetSoft',
   cyan: 'hover:bg-signal-cyan/10 hover:text-signal-cyan',
   amber: 'hover:bg-signal-amber/10 hover:text-signal-amber',
+  rose: 'hover:bg-signal-rose/10 hover:text-signal-rose',
 }
 
 const ACCENT_BORDER = {
   violet: 'hover:border-signal-violet/50',
   cyan: 'hover:border-signal-cyan/50',
   amber: 'hover:border-signal-amber/50',
+  rose: 'hover:border-signal-rose/50',
 }
 
 export default function Projects() {
