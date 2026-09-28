@@ -33,7 +33,7 @@ export const projects = [
   },
   {
     id: 'sendto',
-    image: '/projects/sendto.svg',
+    image: '/projects/sendto.png',
     name: 'SendTo — Share Files & Text',
     tagline: 'Share files or text with a 6-digit code or QR. No account needed.',
     description:
