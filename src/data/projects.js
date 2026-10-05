@@ -27,7 +27,7 @@ export const projects = [
       'Designing a slot-status data model that stays consistent across concurrent updates from staff and users, and structuring role-based access cleanly across the API and UI.',
     learned:
       'Practical experience with role-based authentication, structuring a multi-role REST API, and designing a relational-style schema in a document database.',
-    github: 'https://github.com/Ranit-Ani/car-parking-app.git',
+    github: 'https://github.com/Ranit-Ani/park.git',
     demo: 'https://car-parking-app-xofv.onrender.com',
     accent: 'violet',
   },
